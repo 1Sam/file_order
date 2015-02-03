@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon version="0.2">
+    <title xml:lang="ko">File order 버튼 삽입 애드온</title>
+    <description xml:lang="ko">
+	    문서작성 에디터 또는 댓글작성 에디터 내에 첨부 파일의 순서를 변경할 수 있도록 File order 기능을 삽입하는 애드온입니다.(XE기본 에디터에서만 작동함)
+    </description>
+    <version>0.1</version>
+    <date>2014-08</date>
+    <author email_address="1sam@korea.com" link="http://1sam.kr">
+        <name xml:lang="ko">1SamOnline</name>
+    </author>
+
+  	<extra_vars>
+        <var name="File order_editor" type="select">
+            <title xml:lang="ko">File order 버튼 삽입 에디터</title>
+            <description xml:lang="ko">File order 삽입 에디터를 선택하세요.</description>
+            <options value="all">
+                <title xml:lang="ko">문서,댓글작성 에디터</title>
+            </options>
+            <options value="document">
+                <title xml:lang="ko">문서작성 에디터</title>
+            </options>
+            <options value="comment">
+                <title xml:lang="ko">댓글작성 에디터</title>
+            </options>
+        </var>
+  	</extra_vars>
+</addon>
