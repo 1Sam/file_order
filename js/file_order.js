@@ -135,57 +135,58 @@ function removeUploadedFile_1sam(editorSequence,idx) {
 
 
 
-        function startProgress()
-        {
-            var iFrame = document.createElement('iframe');
-            document.getElementsByTagName('body')[0].appendChild(iFrame);
-            iFrame.src = 'JsPush.php?progress';
-        }
+function startProgress()
+{
+	var iFrame = document.createElement('iframe');
+	document.getElementsByTagName('body')[0].appendChild(iFrame);
+	iFrame.src = 'JsPush.php?progress';
+}
 
-        function Zend_ProgressBar_Update(data)
-        {
-            document.getElementById('pg-percent').style.width = data.percent + '%';
+function Zend_ProgressBar_Update(data)
+{
+	document.getElementById('pg-percent').style.width = data.percent + '%';
 
-            document.getElementById('pg-text-1').innerHTML = data.text;
-            document.getElementById('pg-text-2').innerHTML = data.text;
-        }
+	document.getElementById('pg-text-1').innerHTML = data.text;
+	document.getElementById('pg-text-2').innerHTML = data.text;
+}
 
-        function Zend_ProgressBar_Finish()
-        {
-            document.getElementById('pg-percent').style.width = '100%';
+function Zend_ProgressBar_Finish()
+{
+	document.getElementById('pg-percent').style.width = '100%';
 
-            document.getElementById('pg-text-1').innerHTML = 'Demo done';
-            document.getElementById('pg-text-2').innerHTML = 'Demo done';
-        }
+	document.getElementById('pg-text-1').innerHTML = 'Demo done';
+	document.getElementById('pg-text-2').innerHTML = 'Demo done';
+}
 
-    jQuery('#btn-up').bind('click', function() {
-        jQuery('#uploaded_file_list_{$editor_sequence} option:selected').each( function() {
-            var newPos = jQuery('#uploaded_file_list_{$editor_sequence} option').index(this) - 1;
+jQuery('#btn-up').bind('click', function() {
+	jQuery('#uploaded_file_list_{$editor_sequence} option:selected').each( function() {
+		var newPos = jQuery('#uploaded_file_list_{$editor_sequence} option').index(this) - 1;
+		
+		if (newPos > -1) {
+			var newVal1 = $("#uploaded_file_list_{$editor_sequence} option").eq(newPos).val();
+
+
+			jQuery('#uploaded_file_list_{$editor_sequence} option').eq(newPos).before("<option value='"+newVal1+"'>"+jQuery(this).text()+"</option>");
+			jQuery('#uploaded_file_list_{$editor_sequence} option').eq(newPos + 1).val(jQuery(this).val());
+			jQuery(this).remove();
+			jQuery('#uploaded_file_list_{$editor_sequence} option').eq(newPos).attr("selected", "selected");
+		}
+	});
+});
+
+jQuery('#btn-down').bind('click', function() {
+	var countOptions = jQuery('#uploaded_file_list_{$editor_sequence} option').size();
+	jQuery('#uploaded_file_list_{$editor_sequence} option:selected').each( function() {			
+		var newPos = jQuery('#uploaded_file_list_{$editor_sequence} option').index(this) + 1;
+		
+		if (newPos < countOptions) {
+			var newVal1 = $("#uploaded_file_list_{$editor_sequence} option").eq(newPos).val();
+
+			jQuery('#uploaded_file_list_{$editor_sequence} option').eq(newPos).after("<option value='"+newVal1+"'>"+jQuery(this).text()+"</option>");
+			jQuery('#uploaded_file_list_{$editor_sequence} option').eq(newPos).val(jQuery(this).val());
 			
-            if (newPos > -1) {
-				var newVal1 = $("#uploaded_file_list_{$editor_sequence} option").eq(newPos).val();
-
-
-                jQuery('#uploaded_file_list_{$editor_sequence} option').eq(newPos).before("<option value='"+newVal1+"'>"+jQuery(this).text()+"</option>");
-				jQuery('#uploaded_file_list_{$editor_sequence} option').eq(newPos + 1).val(jQuery(this).val());
-                jQuery(this).remove();
-				jQuery('#uploaded_file_list_{$editor_sequence} option').eq(newPos).attr("selected", "selected");
-            }
-        });
-    });
-    jQuery('#btn-down').bind('click', function() {
-        var countOptions = jQuery('#uploaded_file_list_{$editor_sequence} option').size();
-        jQuery('#uploaded_file_list_{$editor_sequence} option:selected').each( function() {			
-            var newPos = jQuery('#uploaded_file_list_{$editor_sequence} option').index(this) + 1;
-			
-            if (newPos < countOptions) {
-				var newVal1 = $("#uploaded_file_list_{$editor_sequence} option").eq(newPos).val();
-
-                jQuery('#uploaded_file_list_{$editor_sequence} option').eq(newPos).after("<option value='"+newVal1+"'>"+jQuery(this).text()+"</option>");
-				jQuery('#uploaded_file_list_{$editor_sequence} option').eq(newPos).val(jQuery(this).val());
-				
-                jQuery(this).remove();
-				jQuery('#uploaded_file_list_{$editor_sequence} option').eq(newPos).attr("selected", "selected");
-            }
-        });
-    });
+			jQuery(this).remove();
+			jQuery('#uploaded_file_list_{$editor_sequence} option').eq(newPos).attr("selected", "selected");
+		}
+	});
+});
