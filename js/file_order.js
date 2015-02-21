@@ -26,8 +26,8 @@ function file_order_up(editor_sequence){
 function file_order_down(editor_sequence){
 	var	preview = jQuery('#preview_uploaded_'+editor_sequence);
 	//preview.html('안녕');
-	preview.removeAttr('id');
-	preview.attr('id', '#preview_uploadedx_'+editor_sequence);
+	//preview.removeAttr('id');
+	//preview.attr('id', '#preview_uploadedx_'+editor_sequence);
 	
     var countOptions = jQuery('#uploaded_file_list_'+editor_sequence+' option').size();
     jQuery('#uploaded_file_list_'+editor_sequence+' option:selected').each( function() {			
@@ -77,7 +77,7 @@ function removeUploadedFile_1sam(editorSequence,idx) {
 			target_srl = ret.upload_target_srl;
 			//remain     = Math.floor((parseInt(ret.left_size,10)||0)/1024);
 	
-			$list = jQuery('#'+cfg.fileListAreaID).empty();
+			$list = $('#'+cfg.fileListAreaID).empty();
 	
 			if(target_srl) {
 				if(editorRelKeys[seq].primary.value != target_srl) {
@@ -89,8 +89,8 @@ function removeUploadedFile_1sam(editorSequence,idx) {
 				cfg.uploadTargetSrl = target_srl;
 			}
 	
-			jQuery('#'+cfg.uploaderStatusID).html(up_status);
-			jQuery('#'+cfg.previewAreaID).empty();
+			$('#'+cfg.uploaderStatusID).html(up_status);
+			$('#'+cfg.previewAreaID).empty();
 	
 			if(files && files.item) {
 				items = files.item;
@@ -106,7 +106,7 @@ function removeUploadedFile_1sam(editorSequence,idx) {
 					/*if(/\.(jpe?g|png|gif)$/i.test(itm.download_url)) {
 						loaded_images[file_srl] = jQuery('<img />').attr('src', itm.download_url).get(0);
 					}*/
-					jQuery('<option />')
+					$('<option />')
 						.text(itm.source_filename + ' ('+itm.disp_file_size+' )')
 						.attr('value', file_srl)
 						.appendTo($list);
@@ -190,3 +190,8 @@ jQuery('#btn-down').bind('click', function() {
 		}
 	});
 });
+
+		
+		
+
+	
