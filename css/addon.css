@@ -3,51 +3,6 @@
 .file_order_box input {margin-right:5px}
 .file_order { position:relative; border:1px solid #ccc; }
 
-/*iframe {
-	position: absolute;
-	left: -100px;
-	top: -100px;
-
-	width: 10px;
-	height: 10px;
-	overflow: hidden;
-}*/
-
-#progressbar {
-	position: absolute;
-	left: 10px;
-	top: 10px;
-}
-
-.pg-progressbar {
-	position: relative;
-
-	width: 250px;
-	height: 24px;
-	overflow: hidden;
-
-	border: 1px solid #c6c6c6;
-}
-
-.pg-progress {
-	z-index: 150;
-
-	position: absolute;
-	left: 0;
-	top: 0;
-
-	width: 0;
-	height: 24px;
-	overflow: hidden;
-}
-
-.pg-progressstyle {
-	height: 22px;
-
-	border: 1px solid #748a9e;
-	background-image: url('animation.gif');
-}
-
 .pg-text,
 .pg-invertedtext {
 	position: absolute;
