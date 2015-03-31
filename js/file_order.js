@@ -1,46 +1,56 @@
-function file_order_up(editor_sequence){
-	jQuery('#uploaded_file_list_'+editor_sequence+' option:selected').each( function() {
-    	var newPos = jQuery('#uploaded_file_list_'+editor_sequence+' option').index(this) - 1;
+function file_order_up(seq){
+	//jQuery('#uploaded_file_list_'+seq+' option:selected').each( function() {
+    	//var newPos = jQuery('#uploaded_file_list_'+seq+' option').index(this) - 1;
+		var newPos = jQuery('#uploaded_file_list_'+seq+' option:selected').index() - 1;
 		
-        if (newPos > -1) {
+        if (newPos >= 0) {
 
 			//this는 현재 셀렉트된 값 jQuery(this).val()
 			//this의 바로 위의 시퀀스 값
-			var newVal = jQuery('#uploaded_file_list_'+editor_sequence+' option').eq(newPos).val();
-			var formData = {editor_sequence:editor_sequence,file_srl:jQuery(this).val(),file_srl2:newVal};
+			var thisVal = jQuery('#uploaded_file_list_'+seq+' option:selected').val();
+			var newVal = jQuery('#uploaded_file_list_'+seq+' option').eq(newPos).val();
+			var formData = {editor_sequence:seq,file_srl:thisVal,file_srl2:newVal};
+			//alert(JSON.stringify(formData));
 			
 		 	var request = jQuery.ajax({
 				url: './addons/file_order/file_order.ajax.php',type:'POST',dataType:'json',data:formData,
 				success: function(result){
-					if(result.error != -1){
-				 		reload_filelists(editor_sequence,newPos);
-					}},
+				
+					if(result.error == 0){
+				 		reload_filelists(seq,newPos);
+					} else {
+						alert(JSON.stringify(result));
+					}
+				},
 				global:false,cache:false,headers:{"cache-control":"no-cache","pragma":"no-cache"},	async:false, error: function(e){alert(JSON.stringify(e));}
 			});
         }
-    });
+	//});
 }
 
-function file_order_down(editor_sequence){
-	//var	preview = jQuery('#preview_uploaded_'+editor_sequence);
+function file_order_down(seq){
+	//var	preview = jQuery('#preview_uploaded_'+seq);
 
-    var countOptions = jQuery('#uploaded_file_list_'+editor_sequence+' option').size();
-    jQuery('#uploaded_file_list_'+editor_sequence+' option:selected').each( function() {			
-        var newPos = jQuery('#uploaded_file_list_'+editor_sequence+' option').index(this) + 1;
+    var countOptions = jQuery('#uploaded_file_list_'+seq+' option').size();
+    //jQuery('#uploaded_file_list_'+seq+' option:selected').each( function() {			
+        //var newPos = jQuery('#uploaded_file_list_'+seq+' option').index(this) + 1;
+		var newPos = jQuery('#uploaded_file_list_'+seq+' option:selected').index() + 1;
 
         if (newPos < countOptions) {
-			var newVal = jQuery('#uploaded_file_list_'+editor_sequence+' option').eq(newPos).val();
-			var formData = {editor_sequence:editor_sequence,file_srl:jQuery(this).val(),file_srl2:newVal};
+			var thisVal = jQuery('#uploaded_file_list_'+seq+' option:selected').val();
+			var newVal = jQuery('#uploaded_file_list_'+seq+' option').eq(newPos).val();
+			var formData = {editor_sequence:seq,file_srl:thisVal,file_srl2:newVal};
+			//alert(JSON.stringify(formData));
 		 	var request = jQuery.ajax({
 				url: './addons/file_order/file_order.ajax.php',type:'POST',dataType:'json',data:formData,
 				success: function(result){
 					if(result.error != -1){
-						reload_filelists(editor_sequence,newPos);
+						reload_filelists(seq,newPos);
 					}},
 				global:false,cache:false,headers:{"cache-control":"no-cache","pragma":"no-cache"},	async:false, error: function(e){alert(JSON.stringify(e));}
 			});
         }
-    });
+    //});
 }
 
 
@@ -51,8 +61,8 @@ function file_order_down(editor_sequence){
 
 function reload_filelists(editorSequence,idx) {
 	var cfgx = uploaderSettings[editorSequence];
-	var fileListAreaID = cfgx.fileListAreaID;
-	var fileListObj = get_by_id(fileListAreaID);
+	//var fileListAreaIDx = cfgx.fileListAreaID;
+	//var fileListObjx = get_by_id(cfgx.fileListAreaID);
 	
 	var params = {
 		mid : current_mid,
