@@ -24,7 +24,10 @@ if($called_position == 'after_module_proc' && $this->act == 'dispBoardWrite') {
 	
 		$document_srl = Context::get('document_srl');
 		//시퀀스값; 새글일 경우만 시퀀스값, 아니면 글번호값
-		$seq = $document_srl ? $document_srl : $_SESSION[_editor_sequence_];
+		//에디터 시퀀스값은 첫로그인 첫 글작성시에 $_SESSION에 에디터 설정값이 작정되어 있지 않다.
+		//따라서 시퀀스값을 구하지 못한 경우에는 '1'을 기본값으로 지정
+		$seq = $document_srl ? $document_srl : ($_SESSION[_editor_sequence_] ?: '1');
+	
 	
 		// 리스트 순서 바꾸기 버튼
 		$updown_btn = sprintf('<div class="file_order_box"><input class="btn btn-primary btn-xs" type="button" onClick="%s" value="Up"/><input class="btn btn-primary btn-xs" type="button" onClick="%s" value="Down"/></div>',"file_order_up('{$seq}');", "file_order_down('{$seq}');");
@@ -36,6 +39,8 @@ if($called_position == 'after_module_proc' && $this->act == 'dispBoardWrite') {
 				});
 			</script>
 		',addslashes($updown_btn));
+		echo print_r($_SESSION,true);
+		//exit;
 	
 		Context::addHtmlFooter($footer_content);
 	}
