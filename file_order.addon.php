@@ -28,6 +28,7 @@ if($called_position == 'after_module_proc' && $this->act == 'dispBoardWrite') {
 		//따라서 시퀀스값을 구하지 못한 경우에는 '1'을 기본값으로 지정
 		$seq = $document_srl ? $document_srl : ($_SESSION[_editor_sequence_] ?: '1');
 	
+	
 		// 리스트 순서 바꾸기 버튼
 		$updown_btn = sprintf('<div class="file_order_box"><input class="btn btn-primary btn-xs" type="button" onClick="%s" value="Up"/><input class="btn btn-primary btn-xs" type="button" onClick="%s" value="Down"/></div>',"file_order_up('{$seq}');", "file_order_down('{$seq}');");
 	
@@ -38,7 +39,9 @@ if($called_position == 'after_module_proc' && $this->act == 'dispBoardWrite') {
 				});
 			</script>
 		',addslashes($updown_btn));
-
+		echo print_r($_SESSION,true);
+		//exit;
+	
 		Context::addHtmlFooter($footer_content);
 	}
 }
